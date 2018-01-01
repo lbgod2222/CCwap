@@ -1,4 +1,9 @@
 export default {
+  main: {
+    hot: '热门',
+    new: '最新',
+    personal: '个人中心'
+  },
   app: {
     app_name: 'HiApp',
     back: '返回',

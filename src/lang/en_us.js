@@ -1,4 +1,9 @@
 export default {
+  main: {
+    hot: 'HOT',
+    new: 'NEW',
+    personal: 'PERSONAL'
+  },
   app: {
     app_name: 'HiApp',
     back: 'Back',

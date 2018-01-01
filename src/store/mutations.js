@@ -19,6 +19,14 @@ export default {
   [types.INIT_TIMETIME] (state, { timeline }) {
     Vue.set(state, 'timeline', timeline)
   },
+  // get hot list
+  [types.GET_HOT] (state, { hotList }) {
+    Vue.set(state, 'hotList', hotList)
+  },
+  // get new list
+  [types.GET_NEW] (state, { newList }) {
+    Vue.set(state, 'newList', newList)
+  },
   [types.UPDATE_TIMETIME] (state, { mid, type }) {
     let item = find(state.timeline, p => p.id === mid)
     let update = {}

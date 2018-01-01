@@ -32,6 +32,38 @@ export function getTimeline({commit}, callback = () => {}) {
     callback()
   })
 }
+// get hot list
+export function getHotList({commit}, {limit, offset}) {
+  axios.get('/articles', {
+    params: {
+      sortBy: undefined,
+      limit: limit,
+      offset: offset
+    }
+  }).then(res => {
+    let hostList = res.data
+    commit(types.GET_HOT, {
+      hostList
+    })
+  })
+}
+// get new list
+export function getNewList({commit}, callback = () => {}) {
+  axios.get('/articles', {
+    params: {
+      sortBy: 'timestamp',
+      limit: limit,
+      offset: offset
+    }
+  }
+).then(res => {
+    let newList = res.data
+    commit(types.GET_NEW, {
+      newList
+    })
+    callback()
+  })
+}
 
 export function updateTimeline({commit}, { mid, type }) {
   commit(types.UPDATE_TIMETIME, {
@@ -39,3 +71,5 @@ export function updateTimeline({commit}, { mid, type }) {
     type
   })
 }
+
+export function getHot({commit}, ) {}

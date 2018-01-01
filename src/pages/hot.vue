@@ -1,6 +1,6 @@
 <template>
     <div class="home-view">
-        <card v-for="(item, index) in timeline" :key="item.id" :data="item" @card:content-click="routeToPost"></card>        
+        <card v-for="(item, index) in hotList" :key="item.id" :data="item" @card:content-click="routeToPost"></card>        
     </div>
 </template>
 
@@ -14,13 +14,13 @@ import {mapState} from 'vuex'
 export default {
   computed: {
     ...mapState({
-      timeline: state => state.timeline,
+      hotList: state => state.hotList,
     })
   },
   mounted() {
     this.$nextTick(_ => {
       this.$f7.showIndicator()
-      this.$store.dispatch('getTimeline', () => {
+      this.$store.dispatch('getHotList', () => {
         this.$f7.hideIndicator()
       })
     })
