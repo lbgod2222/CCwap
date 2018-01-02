@@ -16,7 +16,8 @@
               <img class="logo" src="../static/img/logo.png" alt="">
             </f7-nav-center>
           <f7-nav-right>
-            <f7-link open-popup="#publisherPopup" icon="iconfont icon-feedback3" icon-size="22"></f7-link>
+            <!-- <f7-link open-popup="#publisherPopup" icon="iconfont icon-feedback3" icon-size="22"></f7-link> -->
+            <f7-link open-login-screen="#LoginView" icon="iconfont icon-feedback3" icon-size="22"></f7-link>
           </f7-nav-right>
         </f7-navbar>
         
@@ -59,6 +60,7 @@ import ContactsView from './pages/contacts.vue'
 import SettingsView from './pages/settings.vue'
 import CommentPopup from './pages/comment.vue'
 import PublisherPopup from './pages/publisher.vue'
+import LoginView from './pages/login.vue'
 
 export default {
   data() {
@@ -89,7 +91,8 @@ export default {
     ContactsView,
     SettingsView,
     CommentPopup,
-    PublisherPopup
+    PublisherPopup,
+    LoginView
   }
 }
 </script>

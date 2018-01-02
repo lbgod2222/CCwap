@@ -29,7 +29,7 @@ import App from './app'
 
 // Import Vuex store
 import store from './store'
-import {getLoginUser} from './store/actions'
+// import {getLoginUser} from './store/actions'
 
 // Init network framework
 import './network'
@@ -70,4 +70,4 @@ new Vue({
   }
 })
 
-getLoginUser(store)
+// getLoginUser(store)

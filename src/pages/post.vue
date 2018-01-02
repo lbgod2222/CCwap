@@ -2,19 +2,19 @@
   <f7-page class="post-page" navbar-fixed toolbar-fixed>
     <f7-navbar :title="$t('post.post')" :back-link="$t('app.back')" sliding>
     </f7-navbar>
-    <card :enableToolbar="false" :data="post"></card>
+    <card :enableToolbar="false" :data="articleDetail"></card>
     <div class="comments">
       <div class="title">
         <span>{{$t('tweet.comment')}}</span>
       </div>
       <div class="list">
-        <template v-if="comments.length">
+        <template v-if="this.comments">
           <div class="comment flex-row" v-for="(comment, index) in comments" :key="comment.name">
-            <img class="avatar" :src="getAvatar(comment.avatar)" />
+            <!-- <img class="avatar" :src="getAvatar(comment.avatar)" /> -->
             <div class="detail flex-rest-width">
-              <div class="name"><span>{{comment.name}}</span></div>
-              <div class="time"><span>{{formatTime(comment.time)}}</span></div>
-              <div class="text"><span>{{comment.text}}</span></div>
+              <div class="name"><span>{{comment.authorId}}</span></div>
+              <!-- <div class="time"><span>{{formatTime(comment.time)}}</span></div> -->
+              <div class="text"><span>{{comment.content}}</span></div>
             </div>
           </div>
         </template>
@@ -29,11 +29,11 @@
     <f7-toolbar class="custom-toolbar flex-row">
       <f7-link class="tool tool-border flex-rest-width" @click="openCommentPopup">
         <span class="iconfont icon-comment"></span>
-        <span class="text" v-text="post.comment_count ? post.comment_count : $t('tweet.comment')"></span>
+        <span class="text" v-text="articleDetail.comments ? articleDetail.comments : $t('tweet.comment')"></span>
       </f7-link>
-      <f7-link class="tool flex-rest-width" :class="{liked: post.liked}" @click="toggleLike(post.id, post.liked)">
+      <f7-link class="tool flex-rest-width" :class="{liked: articleDetail.votes > 0}">
         <span class="iconfont icon-like"></span>
-        <span class="text" v-text="post.like_count ? post.like_count : $t('tweet.like')"></span>
+        <span class="text" v-text="articleDetail.votes > 0 ? articleDetail.votes : $t('tweet.like')"></span>
       </f7-link>
     </f7-toolbar>
   </f7-page>
@@ -111,36 +111,57 @@
 </style>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import Card from '../components/card.vue'
 import moment from 'moment'
 import {getRemoteAvatar} from '../utils/appFunc'
 import {mapState} from 'vuex'
-import find from 'lodash/find'
+// import find from 'lodash/find'
 
 export default {
   data() {
     return {
-      post: {},
-      comments: []
+      // post: {},
+      // comments: []
     }
   },
   computed: {
     ...mapState({
-      timeline: state => state.timeline,
+      articleDetail: state => state.articleDetail.article,
+      comments: state => state.comments.comments,
     })
   },
-  mounted() {
-    let query = this.$route.query
-    this.post = find(this.timeline, p => p.id === parseInt(query.mid))
-    this.getComments()
+  async created(){
+    console.log(this.$route)
+    await this.$store.dispatch('getArticleDeatil', {
+      id: this.$route.params.id
+    })
+    await this.$store.dispatch('getArticleComment', {
+      id: this.$route.params.id
+    })
+  },
+  mounted(){
+    console.log(this, 'from post page')
+    // let query = this.$route.query
+    // this.post = find(this.timeline, p => p.id === parseInt(query.mid))
+    // this.getComments()
+    // this.$nextTick(_ => {
+    //   this.$f7.showIndicator()
+    //   this.getComments()
+    //   this.getContent()
+    //   console.log('CAN CALL IT OFF')
+    //   this.$f7.hideIndicator()
+    // })
   },
   methods: {
+    getContent() {
+      this.$store.dispatch('getArticleDeatil', {
+        id: this.$route.params.id
+      })
+    },
     getComments() {
-      let random = Math.floor(Math.random()*2)
-      if(!random) return []
-      axios.get('/comments.json').then(res => {
-        this.comments = res.data
+      this.$store.dispatch('getArticleComment', {
+        id: this.$route.params.id
       })
     },
     formatTime(time) {

@@ -20,7 +20,7 @@ export default [
     component: require('./pages/message.vue')
   },
   {
-    path: '/post/',
+    path: '/articles/:id',
     component: require('./pages/post.vue')
   },
 ]

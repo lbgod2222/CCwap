@@ -1,6 +1,6 @@
 <template>
-    <div class="home-view">
-        <card v-for="(item, index) in hotList" :key="item.id" :data="item" @card:content-click="routeToPost"></card>        
+    <div class="hot-view">
+        <card v-for="(item, index) in hotList.articles" :key="item.id" :data="item" :enableToolbar="true" @card:content-click="routeToPost"></card>        
     </div>
 </template>
 
@@ -17,17 +17,25 @@ export default {
       hotList: state => state.hotList,
     })
   },
+  created(){
+    console.log(this)
+  },
   mounted() {
+    console.log(this.$f7)
     this.$nextTick(_ => {
       this.$f7.showIndicator()
-      this.$store.dispatch('getHotList', () => {
-        this.$f7.hideIndicator()
+      this.$store.dispatch('getHotList', {
+        limit: 10,
+        offset: 0
       })
+      console.log('CAN CALL IT OFF')
+      this.$f7.hideIndicator()
     })
   },
   methods: {
     routeToPost(data) {
-      this.$f7.mainView.router.load({url: `/post/?mid=${data.id}`})
+      console.log('FUCK SOMETHING', data)
+      this.$f7.mainView.router.load({url: `/articles/${data.id}`})
     }
   },
   components: {

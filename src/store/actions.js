@@ -1,6 +1,9 @@
 import axios from 'axios'
 import * as types from './mutation-types'
 
+// const base
+// const baseUrl = 'http://testnet.cctime.org:4096/api/dapps/d352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1'
+
 export function getLoginUser({commit}) {
   axios.get('/user_login.json').then(res => {
     let user = res.data.user
@@ -41,14 +44,15 @@ export function getHotList({commit}, {limit, offset}) {
       offset: offset
     }
   }).then(res => {
-    let hostList = res.data
+    console.log(res)
+    let hotList = res
     commit(types.GET_HOT, {
-      hostList
+      hotList
     })
   })
 }
 // get new list
-export function getNewList({commit}, callback = () => {}) {
+export function getNewList({commit}, {limit, offset}) {
   axios.get('/articles', {
     params: {
       sortBy: 'timestamp',
@@ -57,11 +61,34 @@ export function getNewList({commit}, callback = () => {}) {
     }
   }
 ).then(res => {
-    let newList = res.data
-    commit(types.GET_NEW, {
-      newList
+  let newList = res
+  commit(types.GET_NEW, {
+    newList
+  })
+})
+}
+
+// get article detail
+export function getArticleDeatil({commit}, {id}) {
+  axios.get(`/articles/${id}`)
+  .then(res => {
+    const articleDetail = res
+    console.log(res)
+    commit(types.GET_ARITCLE_DETAIL, {
+      articleDetail
     })
-    callback()
+  })
+}
+
+// get article comment
+export function getArticleComment({commit}, {id}) {
+  axios.get(`/articles/${id}/comments`)
+  .then(res => {
+    const comments = res
+    console.log(res)
+    commit(types.GET_COMMENT, {
+      comments
+    })
   })
 }
 
@@ -72,4 +99,4 @@ export function updateTimeline({commit}, { mid, type }) {
   })
 }
 
-export function getHot({commit}, ) {}
+// export function getHot({commit}, ) {}

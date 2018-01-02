@@ -1,6 +1,6 @@
 <template>
-    <div class="home-view">
-        <card v-for="(item, index) in newList" :key="item.id" :data="item" @card:content-click="routeToPost"></card>        
+    <div class="new-view">
+        <card v-for="(item, index) in newList" :key="item.id" :data="item" :enableToolbar="true" @card:content-click="routeToPost"></card>        
     </div>
 </template>
 
@@ -20,9 +20,12 @@ export default {
   mounted() {
     this.$nextTick(_ => {
       this.$f7.showIndicator()
-      this.$store.dispatch('getNewList', () => {
-        this.$f7.hideIndicator()
+      this.$store.dispatch('getHotList', {
+        limit: 10,
+        offset: 0
       })
+      console.log('CAN CALL IT OFF')
+      this.$f7.hideIndicator()
     })
   },
   methods: {

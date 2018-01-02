@@ -21,11 +21,20 @@ export default {
   },
   // get hot list
   [types.GET_HOT] (state, { hotList }) {
+    console.log(hotList)
     Vue.set(state, 'hotList', hotList)
   },
   // get new list
   [types.GET_NEW] (state, { newList }) {
     Vue.set(state, 'newList', newList)
+  },
+  // get article detail
+  [types.GET_ARITCLE_DETAIL] (state, {articleDetail}) {
+    Vue.set(state, 'articleDetail', articleDetail)
+  },
+  // get article comments
+  [types.GET_COMMENT] (state, {comments}) {
+    Vue.set(state, 'comments', comments)
   },
   [types.UPDATE_TIMETIME] (state, { mid, type }) {
     let item = find(state.timeline, p => p.id === mid)

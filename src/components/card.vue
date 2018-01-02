@@ -5,12 +5,13 @@
         <img :src="getAvatar(data.avatar)" alt="avatar">
       </div>
       <div class="user flex-column">
-        <div class="name">{{data.nickname}}</div>
+        <div class="name" v-if="data.nickname">{{data.nickname}}</div>
+        <div class="name" v-if="!data.nickname">{{data.authorId}}</div>
         <div class="time">{{`#${data.id} `}}{{formatTime(data.created_at)}}</div>
       </div>
     </div>
     <div class="card-content">
-      <div class="text">{{data.text}}</div>
+      <div class="text">{{data.title}}</div>
       <div v-if="data.original_pic" class="image" @click.stop="openPhotoBrowser(data.original_pic)">
         <img :src="data.original_pic">
       </div>
@@ -18,11 +19,11 @@
     <div class="card-footer flex-row" v-if="enableToolbar">
       <f7-link class="tool tool-border flex-rest-width" @click.stop="openCommentPopup">
         <span class="iconfont icon-comment"></span>
-        <span class="text" v-text="data.comment_count ? data.comment_count : $t('tweet.comment')"></span>
+        <span class="text" v-text="data.comments ? data.comments : $t('tweet.comment')"></span>
       </f7-link>
       <f7-link class="tool flex-rest-width" :class="{liked: data.liked}" @click.stop="toggleLike(data.id, data.liked)">
         <span class="iconfont icon-like"></span>
-        <span class="text" v-text="data.like_count ? data.like_count : $t('tweet.like')"></span>
+        <span class="text" v-text="data.votes ? data.votes : $t('tweet.like')"></span>
       </f7-link>
     </div>
   </div>
@@ -109,17 +110,9 @@
 import moment from 'moment'
 import {getRemoteAvatar} from '../utils/appFunc'
 export default {
-  props: {
-    data: {
-      type: Object,
-      default() {
-        return {}
-      }
-    },
-    enableToolbar: {
-      type: Boolean,
-      default: true
-    }
+  props: ['data','enableToolbar'],
+  created(){
+    console.log(this, 'come from the card')
   },
   methods: {
     contentClick(data) {
