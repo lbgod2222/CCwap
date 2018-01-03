@@ -203,6 +203,7 @@ export default {
     //   this.$f7.hideIndicator()
     // })
     console.log('beforecreated')
+    this.$f7.showIndicator()
     let a = await this.$store.dispatch('getArticleDeatil', {
       id: this.$route.params.id
     })
@@ -222,6 +223,7 @@ export default {
     // this.$store.commit('GET_COMMENT',{comments})
     console.log(b,'getArticleComment in async')
     console.log(this)
+    this.$f7.hideIndicator()
   },
   methods: {
     // goto origin page
