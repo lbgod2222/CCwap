@@ -2,7 +2,7 @@
   <div class="card" @click="contentClick(data)">
     <div class="card-header">
       <div class="avatar">
-        <img :src="getAvatar(data.avatar)" alt="avatar">
+        <img :src="'data:image/png;base64,' + data.photo" alt="avatar">
       </div>
       <div class="user flex-column">
         <div class="name" v-if="data.nickname">{{data.nickname}}</div>

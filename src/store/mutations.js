@@ -2,6 +2,7 @@ import Vue from 'vue'
 import * as types from './mutation-types'
 import StoreCache from '../utils/storeCache'
 import getRealTime from '../utils/getRealTime'
+import toPhoto from '../utils/toPhoto'
 import find from 'lodash/find'
 
 let cache = new StoreCache('vuex')
@@ -25,6 +26,7 @@ export default {
     console.log(hotList)
     for (let i=0; i<hotList.articles.length; i++) {
       hotList.articles[i].realtime = getRealTime.getCorrectTimestamp(hotList.articles[i].timestamp)
+      hotList.articles[i].photo = toPhoto.toAvatar(hotList.articles[i].authorId)
     }
     Vue.set(state, 'hotList', hotList)
   },
@@ -32,6 +34,7 @@ export default {
   [types.GET_NEW] (state, { newList }) {
     for (let i=0; i<newList.articles.length; i++) {
       newList.articles[i].realtime = getRealTime.getCorrectTimestamp(newList.articles[i].timestamp)
+      newList.articles[i].photo = toPhoto.toAvatar(newList.articles[i].authorId)
     }
     Vue.set(state, 'newList', newList)
   },

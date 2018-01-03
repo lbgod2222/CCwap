@@ -28,7 +28,7 @@
       <div class="list">
         <template v-if="this.comments.length">
           <div class="comment flex-row" v-for="(comment, index) in this.comments" :key="comment.name">
-            <img class="avatar" :src="getAvatar(comment.avatar)" />
+            <img class="avatar" :src="'data:image/png;base64,' + comment.photo" />
             <div class="detail flex-rest-width">
               <div class="name" v-if="!comment.nickname"><span>{{comment.authorId}}</span></div>
               <div class="name" v-else><span>{{comment.nickname}}</span></div>
@@ -172,6 +172,7 @@ import Card from '../components/card.vue'
 import moment from 'moment'
 import {getRemoteAvatar} from '../utils/appFunc'
 import getRealTime from '../utils/getRealTime'
+import toPhoto from '../utils/toPhoto'
 // import {mapState} from 'vuex'
 // import find from 'lodash/find'
 
@@ -209,6 +210,7 @@ export default {
     })
     this.articleDetail = a.article
     this.articleDetail.realtime = getRealTime.getCorrectTimestamp(this.articleDetail.timestamp)
+    this.articleDetail.photo = toPhoto.toAvatar(this.articleDetail.authorId)
     // this.$store.commit('GET_ARITCLE_DETAIL',{articleDetail})
     console.log(a,'getArticleDetail in async')
     let b = await this.$store.dispatch('getArticleComment', {
@@ -218,6 +220,7 @@ export default {
     for (let i=0; i<this.comments.length; i++) {
       console.log(getRealTime,'the func')
       this.comments[i].realtime = getRealTime.getCorrectTimestamp(this.comments[i].t_timestamp)
+      this.comments[i].photo = toPhoto.toAvatar(this.comments[i].authorId)
     }
     console.log(this.comments)
     // this.$store.commit('GET_COMMENT',{comments})
