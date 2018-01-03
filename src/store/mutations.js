@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import * as types from './mutation-types'
 import StoreCache from '../utils/storeCache'
+import getRealTime from '../utils/getRealTime'
 import find from 'lodash/find'
 
 let cache = new StoreCache('vuex')
@@ -22,14 +23,21 @@ export default {
   // get hot list
   [types.GET_HOT] (state, { hotList }) {
     console.log(hotList)
+    for (let i=0; i<hotList.articles.length; i++) {
+      hotList.articles[i].realtime = getRealTime.getCorrectTimestamp(hotList.articles[i].timestamp)
+    }
     Vue.set(state, 'hotList', hotList)
   },
   // get new list
   [types.GET_NEW] (state, { newList }) {
+    for (let i=0; i<newList.articles.length; i++) {
+      newList.articles[i].realtime = getRealTime.getCorrectTimestamp(newList.articles[i].timestamp)
+    }
     Vue.set(state, 'newList', newList)
   },
   // get article detail
   [types.GET_ARITCLE_DETAIL] (state, {articleDetail}) {
+    console.log('detail!')
     Vue.set(state, 'articleDetail', articleDetail)
   },
   // get article comments

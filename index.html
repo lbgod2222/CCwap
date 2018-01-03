@@ -5,7 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <title>HiApp - A simple and interesting hybrid app.</title>
+  <!-- uc全屏meta -->
+  <meta name="full-screen" content='yes'>
+  <meta name="browsermode" content='application'>
+  <!-- qq全屏meta -->
+  <meta name="x5-orientation" content='portrait'>
+  <meta name="x5-fullscreen" content='true'>
+  <meta name="x5-page-mode" content='app'>
+  <title>CCTime</title>
   <!-- built style files will be auto injected -->
 </head>
 <body>
@@ -13,5 +20,12 @@
   <!-- built script files will be auto injected -->
   
   <script type="text/javascript" src="cordova.js"></script>
+  <!-- <script type="text/javascript">
+    document.documentElement.addEventListener('touchmove', function(event) {
+      if (event.touches.length > 1) {
+        event.preventDefault();
+      }
+    }, false);
+  </script> -->
 </body>
 </html>

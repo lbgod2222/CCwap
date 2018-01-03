@@ -3,27 +3,46 @@
     <f7-navbar :title="$t('post.post')" :back-link="$t('app.back')" sliding>
     </f7-navbar>
     <card :enableToolbar="false" :data="articleDetail"></card>
+    <div class="context" v-if="!articleDetail.url">
+      <div class="title">
+        <span>{{$t('tweet.context')}}</span>
+      </div>
+      <div class="content flex-row">
+        <pre>
+          {{articleDetail.text}}
+        </pre>
+      </div>
+    </div>
+    <div class="linkin" v-else>
+      <div class="title">
+        <span>{{$t('tweet.url')}}</span>
+      </div>
+      <div class="content flex-row">
+        <f7-link @click="goto()">{{$t('tweet.linkin')}}</f7-link>
+      </div>
+    </div>
     <div class="comments">
       <div class="title">
         <span>{{$t('tweet.comment')}}</span>
       </div>
       <div class="list">
-        <template v-if="this.comments">
-          <div class="comment flex-row" v-for="(comment, index) in comments" :key="comment.name">
-            <!-- <img class="avatar" :src="getAvatar(comment.avatar)" /> -->
+        <template v-if="this.comments.length">
+          <div class="comment flex-row" v-for="(comment, index) in this.comments" :key="comment.name">
+            <img class="avatar" :src="getAvatar(comment.avatar)" />
             <div class="detail flex-rest-width">
-              <div class="name"><span>{{comment.authorId}}</span></div>
-              <!-- <div class="time"><span>{{formatTime(comment.time)}}</span></div> -->
+              <div class="name" v-if="!comment.nickname"><span>{{comment.authorId}}</span></div>
+              <div class="name" v-else><span>{{comment.nickname}}</span></div>
+              <div class="time"><span>{{formatTime(comment.realtime)}}</span></div>
               <div class="text"><span>{{comment.content}}</span></div>
             </div>
           </div>
         </template>
-        <div class="empty-content" v-else>
+        <!-- <div class="empty-content" v-else>
           <i class="iconfont icon-wujieguoyangshi"/>
           <div class="text">
             <span>{{$t('app.empty_container')}}</span>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <f7-toolbar class="custom-toolbar flex-row">
@@ -107,6 +126,43 @@
         }
       }
     }
+    .context{
+      background-color: #fff;
+      border-top: 1px solid #dadada;
+      border-bottom: 1px solid #dadada; 
+      margin-bottom: 15px;
+      .title{
+        height: 35px;
+        line-height: 35px;
+        padding: 0 10px;
+        font-size: 13px;
+      }
+      pre{
+        border-top: 1px solid #dadada;
+        padding: 0 10px;
+        margin: 0px;
+        width: 100%;
+        font-size: 14px;
+        overflow: auto;
+        white-space: pre-wrap;
+      }
+    }
+    .linkin{
+      background-color: #fff;
+      border-top: 1px solid #dadada;
+      border-bottom: 1px solid #dadada; 
+      margin-bottom: 15px;
+      .title{
+        height: 35px;
+        line-height: 35px;
+        padding: 0 10px;
+        font-size: 13px;
+      }
+      .content{
+        border-top: 1px solid #dadada;
+        padding: 20px 10px;
+      }
+    }
   }
 </style>
 
@@ -115,45 +171,63 @@
 import Card from '../components/card.vue'
 import moment from 'moment'
 import {getRemoteAvatar} from '../utils/appFunc'
-import {mapState} from 'vuex'
+import getRealTime from '../utils/getRealTime'
+// import {mapState} from 'vuex'
 // import find from 'lodash/find'
 
 export default {
   data() {
     return {
-      // post: {},
-      // comments: []
+      articleDetail: {},
+      comments: []
     }
   },
   computed: {
-    ...mapState({
-      articleDetail: state => state.articleDetail.article,
-      comments: state => state.comments.comments,
-    })
+    // ...mapState({
+    //   articleDetail: state => state.articleDetail.article,
+    //   comments: state => state.comments.comments
+    // })
+    // // ...mapGetters({comments: 'commentList', articleDetail: 'articleDetail'})
   },
-  async created(){
-    console.log(this.$route)
-    await this.$store.dispatch('getArticleDeatil', {
-      id: this.$route.params.id
-    })
-    await this.$store.dispatch('getArticleComment', {
-      id: this.$route.params.id
-    })
-  },
-  mounted(){
-    console.log(this, 'from post page')
-    // let query = this.$route.query
-    // this.post = find(this.timeline, p => p.id === parseInt(query.mid))
-    // this.getComments()
+  async beforeCreate(){
+    // console.log(this)
     // this.$nextTick(_ => {
     //   this.$f7.showIndicator()
-    //   this.getComments()
-    //   this.getContent()
-    //   console.log('CAN CALL IT OFF')
+    //   console.log('nextTick from the post vue')
+    //   this.$store.dispatch('getArticleDeatil', {
+    //     id: this.$route.params.id
+    //   })
+    //   this.$store.dispatch('getArticleComment', {
+    //     id: this.$route.params.id
+    //   })
     //   this.$f7.hideIndicator()
     // })
+    console.log('beforecreated')
+    let a = await this.$store.dispatch('getArticleDeatil', {
+      id: this.$route.params.id
+    })
+    this.articleDetail = a.article
+    this.articleDetail.realtime = getRealTime.getCorrectTimestamp(this.articleDetail.timestamp)
+    // this.$store.commit('GET_ARITCLE_DETAIL',{articleDetail})
+    console.log(a,'getArticleDetail in async')
+    let b = await this.$store.dispatch('getArticleComment', {
+      id: this.$route.params.id
+    })
+    this.comments = b.comments
+    for (let i=0; i<this.comments.length; i++) {
+      console.log(getRealTime,'the func')
+      this.comments[i].realtime = getRealTime.getCorrectTimestamp(this.comments[i].t_timestamp)
+    }
+    console.log(this.comments)
+    // this.$store.commit('GET_COMMENT',{comments})
+    console.log(b,'getArticleComment in async')
+    console.log(this)
   },
   methods: {
+    // goto origin page
+    goto() {
+      window.open(this.articleDetail.url,'_blank')
+    },
     getContent() {
       this.$store.dispatch('getArticleDeatil', {
         id: this.$route.params.id
@@ -165,7 +239,7 @@ export default {
       })
     },
     formatTime(time) {
-      return moment(time * 1000).fromNow()
+      return moment(time).fromNow()
     },
     getAvatar(id) {
       return getRemoteAvatar(id)

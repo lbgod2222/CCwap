@@ -70,26 +70,12 @@ export function getNewList({commit}, {limit, offset}) {
 
 // get article detail
 export function getArticleDeatil({commit}, {id}) {
-  axios.get(`/articles/${id}`)
-  .then(res => {
-    const articleDetail = res
-    console.log(res)
-    commit(types.GET_ARITCLE_DETAIL, {
-      articleDetail
-    })
-  })
+  return axios.get(`/articles/${id}`)
 }
 
 // get article comment
 export function getArticleComment({commit}, {id}) {
-  axios.get(`/articles/${id}/comments`)
-  .then(res => {
-    const comments = res
-    console.log(res)
-    commit(types.GET_COMMENT, {
-      comments
-    })
-  })
+  return axios.get(`/articles/${id}/comments`)
 }
 
 export function updateTimeline({commit}, { mid, type }) {

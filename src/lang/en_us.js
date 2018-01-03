@@ -36,7 +36,10 @@ export default {
   },
   tweet: {
     comment: 'Comment',
-    like: 'Like'
+    url: 'Link',
+    like: 'Like',
+    context: 'Content',
+    linkin: 'Origin Page'
   },
   feedback: {
     placeholder: 'Hi, any suggestion to tell us?',

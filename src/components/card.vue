@@ -7,7 +7,7 @@
       <div class="user flex-column">
         <div class="name" v-if="data.nickname">{{data.nickname}}</div>
         <div class="name" v-if="!data.nickname">{{data.authorId}}</div>
-        <div class="time">{{`#${data.id} `}}{{formatTime(data.created_at)}}</div>
+        <div class="time">{{`#${data.id} `}}{{formatTime(data.realtime)}}</div>
       </div>
     </div>
     <div class="card-content">
@@ -130,7 +130,8 @@ export default {
       this.$f7.popup('#commentPopup')
     },
     formatTime(time) {
-      return moment(time * 1000).fromNow()
+      moment.locale('zh-cn')
+      return moment(time).fromNow()
     },
     getAvatar(id) {
       return getRemoteAvatar(id)

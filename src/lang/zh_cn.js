@@ -36,7 +36,10 @@ export default {
   },
   tweet: {
     comment: '评论',
-    like: '喜欢'
+    url: '链接',
+    like: '喜欢',
+    context: '内容',
+    linkin: '查看原文'
   },
   feedback: {
     placeholder: 'Hi, 有什么意见或意见告诉我们吗?',
