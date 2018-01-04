@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 HiApp
 =====
 
@@ -152,3 +153,6 @@ Copyright (c) 2017 Belin Chung. MIT Licensed, see [LICENSE] for details.
 
 [https://hi.dearb.me/]: https://hi.dearb.me/
 [LICENSE]:https://github.com/BelinChung/HiApp/blob/master/LICENSE.md
+=======
+# cctime-dapp
+>>>>>>> 04a2fc54fb6f458f76ecc1ccc4ddbb124f23af08
