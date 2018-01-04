@@ -1,4 +1,5 @@
 import axios from 'axios'
+// import aschJS from 'asch-js'
 import * as types from './mutation-types'
 
 // const base
@@ -78,11 +79,18 @@ export function getArticleComment({commit}, {id}) {
   return axios.get(`/articles/${id}/comments`)
 }
 
-export function updateTimeline({commit}, { mid, type }) {
-  commit(types.UPDATE_TIMETIME, {
-    mid,
-    type
+// transaction actions
+export function getUserInfo({commit}, {secret, address}) {
+  return axios.get(`/accounts/${address}`)
+  .then(res => {
+    console.log(res)
+    if (res.success) {
+      console.log('get user info!!!!!!!!!!!!!!!!!!!')
+      commit('UPDATE_USER_INFO', {
+        userInfo: res,
+        address: address
+      })
+    }
   })
 }
-
 // export function getHot({commit}, ) {}

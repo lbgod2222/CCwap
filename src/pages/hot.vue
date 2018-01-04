@@ -18,7 +18,7 @@ export default {
     })
   },
   created(){
-    console.log(this)
+    console.log(window.Dom7)
   },
   mounted() {
     console.log(this.$f7)

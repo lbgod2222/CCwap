@@ -1,13 +1,21 @@
 <template>
     <div class="settings-view">
         <f7-list class="user-profile">
-            <f7-list-item link="/profile/" :media="avatarMedia">
-                <div slot="inner-start" class="detail">
-                    <div class="name">{{userInfo.nickName}}</div>
-                    <div class="location">
-                        <span>{{$t('app.city')}}: </span>
-                        <span>{{userInfo.location}}</span>
+            <f7-list-item @click="userSwitch">
+                <div slot="inner-start" class="detail" v-if="this.isLogin">
+                    <!-- <div class="name">{{userInfo.nickName}}</div> -->
+                    <div class="user_name">
+                        <span>{{$t('app.username')}}: </span>
+                        <span v-if='userInfo.account.extra == null'>{{$t('app.unnick')}}</span>
+                        <span v-else>{{userInfo.account.extra.str1}}</span>
                     </div>
+                    <div class="user_address">
+                        <span>{{$t('app.address')}}: </span>
+                        <span>{{address}}</span>
+                    </div>
+                </div>
+                <div slot="inner-start" class="detail" v-else>
+                    <div class="name">{{$t('app.unlogin')}}</div>
                 </div>
             </f7-list-item>
         </f7-list>
@@ -51,10 +59,13 @@
                 border-radius: 5px;
             }
             .detail{
-                .location{
+                .user_name, .user_address{
                     color: #858585;
                     font-size: 15px;
                     margin-top: 5px;
+                }
+                .user_address span:nth-child(2){
+                    font-size: 10px;
                 }
             }
         }
@@ -66,10 +77,27 @@ import {mapState} from 'vuex'
 export default {
   computed: {
     ...mapState({
-      userInfo: state => state.user,
+      userInfo: state => state.user_info,
+      isLogin: state => state.isLogin,
+      address: state => state.user_address
     }),
-    avatarMedia() {
-      return `<img class='avatar' src='${this.userInfo.avatarUrl}' />`
+    // avatarMedia() {
+    //   if (this.isLogin) {
+    //     return '<img src= data:image/png;base64,'+this.userInfo.account.photo+'data.photo>'
+    //   }
+    //   return '<img class="avatar" src="../../static/img/userlogo.png" />'
+    // }
+  },
+  methods: {
+    userSwitch() {
+      console.log(this)
+      console.log(this.isLogin)
+      if (this.isLogin) {
+        // 已登录
+        this.$f7.mainView.router.load({url: '/profile'})
+      } else {
+        return
+      }
     }
   }
 }

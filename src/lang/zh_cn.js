@@ -4,7 +4,15 @@ export default {
     new: '最新',
     personal: '个人中心'
   },
+  login: {
+    title: '登录',
+    secret: '密钥',
+    login: '登录',
+    tip: '请输入您的密钥',
+    label: '请确认您的密钥输入正确'
+  },
   app: {
+    unnick: '尚未设置',
     app_name: 'HiApp',
     back: '返回',
     save: '保存',
@@ -32,7 +40,10 @@ export default {
     modal: {
       title: '系统提示',
       button_ok: '确定'
-    }
+    },
+    username: '昵称',
+    address: '地址',
+    unlogin: '未登录'
   },
   tweet: {
     comment: '评论',

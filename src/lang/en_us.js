@@ -4,7 +4,15 @@ export default {
     new: 'NEW',
     personal: 'PERSONAL'
   },
+  login: {
+    title: 'LOGIN',
+    secret: 'SECRET',
+    login: 'login',
+    tip: 'Input your secret',
+    label: 'PLEASE ENSURE YOUR ARE USING CORRECT SECRET'
+  },
   app: {
+    unnick: 'NO NICK NAME',
     app_name: 'HiApp',
     back: 'Back',
     save: 'Save',
@@ -32,7 +40,10 @@ export default {
     modal: {
       title: 'System',
       button_ok: 'OK'
-    }
+    },
+    username: 'Nick',
+    address: 'Address',
+    unlogin: 'Login'
   },
   tweet: {
     comment: 'Comment',

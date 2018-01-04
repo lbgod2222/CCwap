@@ -48,6 +48,7 @@
     <!-- Comment, publisher Popup -->
     <comment-popup></comment-popup>
     <publisher-popup></publisher-popup>
+    <login-view></login-view>
 
   </div>
 </template>

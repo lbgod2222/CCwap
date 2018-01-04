@@ -27,6 +27,7 @@ export default {
       console.log('CAN CALL IT OFF')
       this.$f7.hideIndicator()
     })
+    console.log(this.$f7)
   },
   methods: {
     routeToPost(data) {

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import aschJS from 'asch-js'
 import * as types from './mutation-types'
 import StoreCache from '../utils/storeCache'
 import getRealTime from '../utils/getRealTime'
@@ -8,8 +9,21 @@ import find from 'lodash/find'
 let cache = new StoreCache('vuex')
 
 export default {
-  [types.INIT_USER_INFO] (state, { user }) {
-    Vue.set(state, 'user', user)
+  // login now
+  [types.SWITCH_LOGIN] (state) {
+    // standalone switcher
+    Vue.set(state, 'isLogin', !state.isLogin)
+  },
+  [types.LOGIN] (state, { secret }) {
+    // set the base info of secret
+    let keypair = aschJS.crypto.getKeys(secret)
+    let address = aschJS.crypto.getAddress(keypair.publicKey)
+    Vue.set(state, 'user_secret', secret)
+    Vue.set(state, 'user_address', address)
+  },
+  [types.UPDATE_USER_INFO] (state, { userInfo, address }) {
+    userInfo.account.photo = toPhoto.toAvatar(address)
+    Vue.set(state, 'user_info', userInfo)
   },
   [types.UPDATE_LANG] (state, lang) {
     Vue.set(state, 'lang', lang)

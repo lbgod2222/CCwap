@@ -9,7 +9,13 @@ Vue.use(Vuex)
 let cache = new StoreCache('vuex')
 
 const state = {
-  user: {},
+  // store for user base
+  user_address: '',
+  user_secret: '',
+  // store for user info / update
+  user_info: {},
+  // login state
+  isLogin: false,
   lang: cache.get('lang') || 'zh',
   contacts: [],
   timeline: [],
