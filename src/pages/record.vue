@@ -26,19 +26,27 @@
 </style>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data(){
     return {
-      items:[
-        '1',
-        '2',
-        '3',
-        '4'
-      ]
+      items:[]
     }
+  },
+  computed: {
+    ...mapState({
+        address: state => state.user_address
+    })
   },
   created(){
     console.log('hey there')
+    let a = this.$store.dispatch('getTransactionRecords', {
+        limit: 20,
+        offset: 0,
+        ownerId: this.address,
+        currency: null,
+    })
+    console.log(a)
   }
 }
 </script>
