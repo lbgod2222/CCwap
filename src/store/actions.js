@@ -79,6 +79,15 @@ export function getArticleComment({commit}, {id}) {
   return axios.get(`/articles/${id}/comments`)
 }
 
+// get transactions records
+export function getTransactionRecords({commit}, {limit, offset, currency}) {
+  return axios.get('/transfers/', {
+    limit: limit,
+    offset: offset,
+    currency: currency
+  })
+}
+
 // transaction actions
 export function getUserInfo({commit}, {secret, address}) {
   return axios.get(`/accounts/${address}`)

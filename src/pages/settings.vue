@@ -1,7 +1,12 @@
 <template>
     <div class="settings-view">
+        <!-- <f7-searchbar
+        cancel-link="Cancel"
+        placeholder="Search in items"
+        :clear="true"
+        ></f7-searchbar> -->
         <f7-list class="user-profile">
-            <f7-list-item @click="userSwitch">
+            <f7-list-item @click="userSwitch" link="#">
                 <div slot="inner-start" class="detail" v-if="this.isLogin">
                     <!-- <div class="name">{{userInfo.nickName}}</div> -->
                     <div class="user_name">
@@ -24,6 +29,9 @@
         </f7-list>
         <f7-list>
             <f7-list-item :title="$t('app.feedback')" link="/feedback/" media="<i class='iconfont icon-feedback2'></i>"></f7-list-item>
+        </f7-list>
+        <f7-list>
+            <f7-list-item :title="$t('app.about')" link="/record/" media="<i class='iconfont icon-about1'></i>"></f7-list-item>
         </f7-list>
         <f7-list>
             <f7-list-item :title="$t('app.about')" link="/about/" media="<i class='iconfont icon-about1'></i>"></f7-list-item>
@@ -96,7 +104,8 @@ export default {
         // 已登录
         this.$f7.mainView.router.load({url: '/profile'})
       } else {
-        return
+        console.log('this shall show something')
+        this.$f7.loginScreen()
       }
     }
   }

@@ -23,4 +23,8 @@ export default [
     path: '/articles/:id',
     component: require('./pages/post.vue')
   },
+  {
+    path: '/record/',
+    component: require('./pages/record.vue')
+  },
 ]

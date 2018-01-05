@@ -13,6 +13,7 @@ export default {
   },
   app: {
     unnick: 'NO NICK NAME',
+    asset: 'MY ASSET',
     app_name: 'HiApp',
     back: 'Back',
     save: 'Save',
@@ -37,6 +38,9 @@ export default {
     close: 'Close',
     submitting: 'submitting...',
     empty_container: 'Empty Container~',
+    transfer: 'TRANSFER',
+    record: 'TRANSFER RECORD',
+    search: 'Search',
     modal: {
       title: 'System',
       button_ok: 'OK'

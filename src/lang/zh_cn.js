@@ -13,7 +13,8 @@ export default {
   },
   app: {
     unnick: '尚未设置',
-    app_name: 'HiApp',
+    asset: '我的资产',
+    app_name: 'CCTIME',
     back: '返回',
     save: '保存',
     unknown: '未知',
@@ -37,6 +38,9 @@ export default {
     close: '关闭',
     submitting: '提交中...',
     empty_container: '暂时还没有内容哦~',
+    transfer: '转账操作',
+    record: '转账记录',
+    search: '搜索',
     modal: {
       title: '系统提示',
       button_ok: '确定'

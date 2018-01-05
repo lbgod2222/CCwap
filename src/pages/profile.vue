@@ -12,8 +12,14 @@
         </f7-list-item>
     </f7-list>
     <f7-list>
-        <f7-list-item :title="$t('app.gender')" :after="formatGender(userInfo.gender)"></f7-list-item>
-        <f7-list-item :title="$t('app.location')" :after="userInfo.location"></f7-list-item>
+        <f7-list-item :title="$t('app.asset')" group-title></f7-list-item>
+        <f7-list-item>
+            <f7-card class="asset-card" v-for="(item, index) in this.userInfo.account.balances">
+              <f7-card-header>{{item.currency}}</f7-card-header>
+              <f7-card-content>{{item.balance}}</f7-card-content>
+              <f7-card-footer>{{$t('app.transfer')}}</f7-card-footer>
+            </f7-card>
+        </f7-list-item>
     </f7-list>
   </f7-page>
 </template>
@@ -37,6 +43,20 @@
     .inner_span{
         font-size: 10px;
     }
+    .asset-card{
+        width: 100%;
+        border: 1px solid #dadada;
+        .card-header{
+            font-size: 24px;
+        }
+        .card-content{
+            font-size: 30px;
+        }
+        .card-footer{
+            justify-content: center;
+            color: #218596;
+        }
+    }
 </style>
 
 <script>
@@ -48,12 +68,15 @@ export default {
       address: state => state.user_address,
     })
   },
+  created() {
+    console.log(this.userInfo)
+  },
   methods: {
-    formatGender(gender) {
-      if(gender === 'm') return this.$t('app.male')
-      else if(gender === 'f') return this.$t('app.female')
-      else return this.$t('app.unknown')
-    }
+    // formatGender(gender) {
+    //   if(gender === 'm') return this.$t('app.male')
+    //   else if(gender === 'f') return this.$t('app.female')
+    //   else return this.$t('app.unknown')
+    // }
   }
 }
 </script>
