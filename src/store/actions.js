@@ -82,10 +82,12 @@ export function getArticleComment({commit}, {id}) {
 // get transactions records
 export function getTransactionRecords({commit}, {limit, offset, ownerId, currency}) {
   return axios.get('/transfers/', {
-    limit: limit,
-    offset: offset,
-    ownerId: ownerId,
-    currency: currency
+    params: {
+      limit: limit,
+      offset: offset,
+      ownerId: ownerId,
+      currency: currency
+    }
   })
 }
 
