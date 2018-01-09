@@ -23,7 +23,8 @@ const state = {
   hotList: [],
   newList: [],
   articleDetail: [],
-  comments: []
+  comments: [],
+  transferDetail: {}
 }
 
 export default new Vuex.Store({

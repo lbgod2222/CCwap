@@ -41,6 +41,7 @@ export default {
     transfer: 'TRANSFER',
     record: 'TRANSFER RECORD',
     search: 'Search',
+    transferdetail: 'Transfer Detail',
     modal: {
       title: 'System',
       button_ok: 'OK'
@@ -72,5 +73,12 @@ export default {
   },
   post: {
     post: 'Post'
+  },
+  transfer: {
+    recipientId: 'Recipient',
+    senderId: 'Sender',
+    currency: 'Currency',
+    amount: 'Amount',
+    time: 'Time'
   }
 }

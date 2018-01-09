@@ -41,6 +41,7 @@ export default {
     transfer: '转账操作',
     record: '转账记录',
     search: '搜索',
+    transferdetail: '转账记录',
     modal: {
       title: '系统提示',
       button_ok: '确定'
@@ -72,5 +73,12 @@ export default {
   },
   post: {
     post: '正文'
+  },
+  transfer: {
+    recipientId: '接受人',
+    senderId: '发起人',
+    currency: '币种',
+    amount: '数量',
+    time: '时间'
   }
 }

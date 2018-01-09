@@ -27,4 +27,8 @@ export default [
     path: '/record/',
     component: require('./pages/record.vue')
   },
+  {
+    path: '/transferDetail/',
+    component: require('./pages/transferDetail.vue')
+  },
 ]

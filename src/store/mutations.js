@@ -61,6 +61,10 @@ export default {
   [types.GET_COMMENT] (state, {comments}) {
     Vue.set(state, 'comments', comments)
   },
+  // in list the transferDetail
+  [types.LIST_TRANSFERDETAIL] (state, {item}) {
+    Vue.set(state, 'transferDetail', item)
+  },
   [types.UPDATE_TIMETIME] (state, { mid, type }) {
     let item = find(state.timeline, p => p.id === mid)
     let update = {}
