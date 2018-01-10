@@ -5,7 +5,7 @@ import StoreCache from '../utils/storeCache'
 import getRealTime from '../utils/getRealTime'
 import toPhoto from '../utils/toPhoto'
 import find from 'lodash/find'
-import { Array } from 'core-js/library/web/timers';
+// import { Array } from 'core-js/library/web/timers';
 
 let cache = new StoreCache('vuex')
 function addTimeAndAva(list) {
@@ -70,13 +70,15 @@ export default {
   [types.ADD_LIST]  (state, {list, type}) {
     switch (type) {
     case 'hot':
+      console.log('hot')
       let origin = state.hotList
-      let mixed = origin.concat(list)
+      let mixed = Array.prototype.concat.apply(origin, list)
       Vue.set(state, 'hotList', mixed)
       break
     case 'new':
+      console.log('new')
       let originN = state.newList
-      let mixedN = originN.concat(list)
+      let mixedN = Array.prototype.concat.apply(originN, list)
       Vue.set(state, 'newList', mixedN)
       break
     }
