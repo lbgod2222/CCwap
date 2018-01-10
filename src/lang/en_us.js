@@ -79,6 +79,7 @@ export default {
     senderId: 'Sender',
     currency: 'Currency',
     amount: 'Amount',
-    time: 'Time'
+    time: 'Time',
+    close: 'Close'
   }
 }

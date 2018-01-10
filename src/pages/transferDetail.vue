@@ -1,23 +1,33 @@
 <template>
-  <f7-popover id="transferDetail">
+  <f7-popup id="transferDetail">
     <f7-page class="transferDetail-page">
         <div class="navbar">
             <div class="navbar-inner">
             <div class="left">
-                <a href="/record/" class="link" @click="rollBack()">
-                <i class="icon icon-back"></i>
+                <a href="#" class="link close-popup" data-popup="#transferDetail">
+                  {{$t('transfer.close')}}
                 </a>
             </div>
             <div class="center">{{$t('app.record')}}</div>
             </div>
         </div>
         <f7-list>
-            <f7-list-item :title="$t('transfer.recipientId')" class="font-smaller">
-                {{item.recipientId}}
-            </f7-list-item>
-            <f7-list-item :title="$t('transfer.senderId')" class="font-smaller">
-                {{item.senderId}}
-            </f7-list-item>
+            <li class="item-content">
+                <div class="item-inner">
+                    <div class="item-title">
+                        {{$t('transfer.recipientId')}}
+                    </div>
+                    <span class="font-smaller">{{item.recipientId}}</span>
+                </div>
+            </li>
+            <li class="item-content">
+                <div class="item-inner">
+                    <div class="item-title">
+                        {{$t('transfer.senderId')}}
+                    </div>
+                    <span class="font-smaller">{{item.senderId}}</span>
+                </div>
+            </li>
             <f7-list-item :title="$t('transfer.currency')">
                 {{item.currency}}
             </f7-list-item>
@@ -39,7 +49,7 @@
             </f7-list-item>
         </f7-list> -->
     </f7-page>
-  </f7-popover>
+  </f7-popup>
 </template>
 
 <style lang="less" scoped>
@@ -48,6 +58,9 @@
     }
     .font-smaller{
         font-size: 10px;
+    }
+    #transferDetail .link{
+        color: white;
     }
 </style>
 

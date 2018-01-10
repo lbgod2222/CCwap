@@ -79,6 +79,7 @@ export default {
     senderId: '发起人',
     currency: '币种',
     amount: '数量',
-    time: '时间'
+    time: '时间',
+    close: '关闭'
   }
 }

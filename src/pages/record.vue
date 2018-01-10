@@ -26,7 +26,7 @@
       <f7-list class="searchbar-found" id="search-list">
         <ul>
           <li v-for="(item,index) in this.items">
-            <a href="" class="item-link" @click="transferListIn(item)" open-popup="#transferDetail">
+            <a href="#" class="item-link open-popup" @click="transferListIn(item)" data-popup="#transferDetail">
               <div class="item-content">
                 <div class="item-inner">
                   <div class="item-title" :class="{isOutput: item.t_type == 3}"><span v-if="item.t_type == 3">+</span>{{item.amount}}</div>

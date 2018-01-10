@@ -5,8 +5,15 @@ import StoreCache from '../utils/storeCache'
 import getRealTime from '../utils/getRealTime'
 import toPhoto from '../utils/toPhoto'
 import find from 'lodash/find'
+import { Array } from 'core-js/library/web/timers';
 
 let cache = new StoreCache('vuex')
+function addTimeAndAva(list) {
+  for (let i=0; i<list.articles.length; i++) {
+    list.articles[i].realtime = getRealTime.getCorrectTimestamp(list.articles[i].timestamp)
+    list.articles[i].photo = toPhoto.toAvatar(list.articles[i].authorId)
+  }
+}
 
 export default {
   // login now
@@ -38,18 +45,12 @@ export default {
   // get hot list
   [types.GET_HOT] (state, { hotList }) {
     console.log(hotList)
-    for (let i=0; i<hotList.articles.length; i++) {
-      hotList.articles[i].realtime = getRealTime.getCorrectTimestamp(hotList.articles[i].timestamp)
-      hotList.articles[i].photo = toPhoto.toAvatar(hotList.articles[i].authorId)
-    }
+    addTimeAndAva(hotList)
     Vue.set(state, 'hotList', hotList)
   },
   // get new list
   [types.GET_NEW] (state, { newList }) {
-    for (let i=0; i<newList.articles.length; i++) {
-      newList.articles[i].realtime = getRealTime.getCorrectTimestamp(newList.articles[i].timestamp)
-      newList.articles[i].photo = toPhoto.toAvatar(newList.articles[i].authorId)
-    }
+    addTimeAndAva(newList)
     Vue.set(state, 'newList', newList)
   },
   // get article detail
@@ -64,6 +65,21 @@ export default {
   // in list the transferDetail
   [types.LIST_TRANSFERDETAIL] (state, {item}) {
     Vue.set(state, 'transferDetail', item)
+  },
+  // list add new contents
+  [types.ADD_LIST]  (state, {list, type}) {
+    switch (type) {
+    case 'hot':
+      let origin = state.hotList
+      let mixed = origin.concat(list)
+      Vue.set(state, 'hotList', mixed)
+      break
+    case 'new':
+      let originN = state.newList
+      let mixedN = originN.concat(list)
+      Vue.set(state, 'newList', mixedN)
+      break
+    }
   },
   [types.UPDATE_TIMETIME] (state, { mid, type }) {
     let item = find(state.timeline, p => p.id === mid)

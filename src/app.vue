@@ -52,7 +52,7 @@
     <login-view></login-view>
     <record-view></record-view>
     <transfer-detail></transfer-detail>
-
+    <post-view></post-view>
   </div>
 </template>
 
@@ -67,6 +67,7 @@ import PublisherPopup from './pages/publisher.vue'
 import LoginView from './pages/login.vue'
 import RecordView from './pages/record.vue'
 import TransferDetail from './pages/transferDetail.vue'
+import postView from './pages/post.vue'
 
 export default {
   data() {
@@ -100,7 +101,8 @@ export default {
     PublisherPopup,
     LoginView,
     RecordView,
-    TransferDetail
+    TransferDetail,
+    postView
   }
 }
 </script>
