@@ -81,5 +81,9 @@ export default {
     amount: 'Amount',
     time: 'Time',
     close: 'Close'
+  },
+  // 加载模块
+  loadmore: {
+    title: 'More'
   }
 }

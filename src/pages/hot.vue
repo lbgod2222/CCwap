@@ -1,7 +1,8 @@
 <template>
   <div class="hot-view">
       <card v-for="(item, index) in hotList" :key="item.id" :data="item" :enableToolbar="true" @card:content-click="routeToPost"></card>        
-    <f7-link @click="loadMore">MORE</f7-link>
+    <!-- <f7-link @click="loadMore">MORE</f7-link> -->
+    <load-more :type="this.type" :caller="'getHotList'" :pagerSet="pagerSet"></load-more>
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 
 <script>
 import Card from '../components/card.vue'
+import  loadMore from '../components/loadMore.vue'
 import {mapState} from 'vuex'
 export default {
   data(){
@@ -19,7 +21,8 @@ export default {
         limit: 10,
         offset: 0,
         loadNumber: 10,
-      }
+      },
+      type: 'hot'
     }
   },
   computed: {
@@ -61,7 +64,8 @@ export default {
       this.isClose = false
     },
     async loadMore() {
-      this.offset += this.loadNumber
+      // this.$f7.showIndicator()
+      this.pagerSet.offset += this.pagerSet.loadNumber
       let addList = await this.$store.dispatch('getHotList', {
         limit: this.pagerSet.limit,
         offset: this.pagerSet.offset,
@@ -71,10 +75,12 @@ export default {
         list: addList,
         type: 'hot'
       })
+      // this.$f7.hideIndicator()
     }
   },
   components: {
-    Card
+    Card,
+    loadMore
   }
 }
 </script>

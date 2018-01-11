@@ -38,6 +38,7 @@
             </a>
           </li>
         </ul>
+      <load-more :type="this.type" :pagerSet="this.pagerSet" :caller="'getTransactionRecords'"></load-more>
       </f7-list>
     </f7-page>
   </div>
@@ -54,10 +55,17 @@
 
 <script>
 import { mapState } from 'vuex'
+import loadMore from '../components/loadMore.vue'
 export default {
   data(){
     return {
-      items:[]
+      items:[],
+      pagerSet: {
+        limit: 20,
+        offset: 0,
+        loadNumber: 10
+      },
+      type: 'record'
     }
   },
   computed: {
@@ -84,6 +92,9 @@ export default {
       console.log(this.$f7.mainView.router)
       this.$f7.mainView.router.load({url: '/'})
     }
+  },
+  components: {
+    loadMore
   }
 }
 </script>

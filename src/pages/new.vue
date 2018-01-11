@@ -1,7 +1,8 @@
 <template>
     <div class="new-view">
         <card v-for="(item, index) in newList" :key="item.id" :data="item" :enableToolbar="true" @card:content-click="routeToPost"></card>        
-        <f7-link @click="loadMore">MORE</f7-link>
+        <!-- <f7-link @click="loadMore">MORE</f7-link> -->
+        <load-more :caller="'getNewList'" :pagerSet="pagerSet" :type="this.type"></load-more>
     </div>
 </template>
 
@@ -11,6 +12,7 @@
 
 <script>
 import Card from '../components/card.vue'
+import  loadMore from '../components/loadMore.vue'
 import {mapState} from 'vuex'
 export default {
   data(){
@@ -19,7 +21,8 @@ export default {
         limit: 10,
         offset: 0,
         loadNumber: 10,
-      }
+      },
+      type: 'new'
     }
   },
   computed: {
@@ -46,7 +49,7 @@ export default {
       this.$f7.mainView.router.load({url: `/articles/${data.id}`})
     },
     async loadMore() {
-      this.$f7.showIndicator()
+      // this.$f7.showIndicator()
       this.pagerSet.offset += this.pagerSet.loadNumber
       console.log('detect', this.offset, this.limit, this.loadNumber)
       let addList = await this.$store.dispatch('getNewList', {
@@ -58,11 +61,12 @@ export default {
         list: addList,
         type: 'new'
       })
-      this.$f7.hideIndicator()
+      // this.$f7.hideIndicator()
     }
   },
   components: {
-    Card
+    Card,
+    loadMore
   }
 }
 </script>

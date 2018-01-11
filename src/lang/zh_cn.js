@@ -81,5 +81,9 @@ export default {
     amount: '数量',
     time: '时间',
     close: '关闭'
+  },
+  // 加载模块
+  loadmore: {
+    title: '更多'
   }
 }

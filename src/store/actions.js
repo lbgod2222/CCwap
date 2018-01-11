@@ -37,22 +37,23 @@ export function getTimeline({commit}, callback = () => {}) {
   })
 }
 // get hot list
-export function getHotList({commit}, {limit, offset, isAdd}) {
-  axios.get('/articles', {
+export async function getHotList({commit}, {limit, offset, isAdd}) {
+  await axios.get('/articles', {
     params: {
-      sortBy: undefined,
+      sortBy: '',
       limit: limit,
       offset: offset
     }
   }).then(res => {
     let hotList = res
+    console.log(hotList)
     if (isAdd === false) {
       commit(types.GET_HOT, {
         hotList
       })
     } else {
       commit(types.ADD_LIST, {
-        hotList,
+        list: hotList,
         type: 'hot'
       })
     }
@@ -75,7 +76,7 @@ export function getNewList({commit}, {limit, offset, isAdd}) {
     })
   } else {
     commit(types.ADD_LIST, {
-      newList,
+      list: newList,
       type: 'new'
     })
   }

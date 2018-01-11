@@ -70,18 +70,18 @@ export default {
   [types.ADD_LIST]  (state, {list, type}) {
     switch (type) {
     case 'hot':
-      console.log('hot')
+      console.log('hot',list,type)
       let origin = state.hotList
       console.log('orgin:', origin)
-      let mixed = Array.prototype.concat.apply(origin, list)
+      let mixed = Array.prototype.concat.apply(origin, list.articles)
       console.log('mixed:', mixed)
       Vue.set(state, 'hotList', mixed)
-      console.log('after:', mixed)
+      console.log('after:', state.hotList)
       break
     case 'new':
-      console.log('new')
+      console.log('new',list,type)
       let originN = state.newList
-      let mixedN = Array.prototype.concat.apply(originN, list)
+      let mixedN = Array.prototype.concat.apply(originN, list.articles)
       Vue.set(state, 'newList', mixedN)
       break
     }
