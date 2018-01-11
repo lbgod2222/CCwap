@@ -46,12 +46,12 @@ export default {
   [types.GET_HOT] (state, { hotList }) {
     console.log(hotList)
     addTimeAndAva(hotList)
-    Vue.set(state, 'hotList', hotList)
+    Vue.set(state, 'hotList', hotList.articles)
   },
   // get new list
   [types.GET_NEW] (state, { newList }) {
     addTimeAndAva(newList)
-    Vue.set(state, 'newList', newList)
+    Vue.set(state, 'newList', newList.articles)
   },
   // get article detail
   [types.GET_ARITCLE_DETAIL] (state, {articleDetail}) {
@@ -72,8 +72,11 @@ export default {
     case 'hot':
       console.log('hot')
       let origin = state.hotList
+      console.log('orgin:', origin)
       let mixed = Array.prototype.concat.apply(origin, list)
+      console.log('mixed:', mixed)
       Vue.set(state, 'hotList', mixed)
+      console.log('after:', mixed)
       break
     case 'new':
       console.log('new')

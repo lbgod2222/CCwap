@@ -1,6 +1,6 @@
 <template>
   <div class="hot-view">
-      <card v-for="(item, index) in hotList.articles" :key="item.id" :data="item" :enableToolbar="true" @card:content-click="routeToPost"></card>        
+      <card v-for="(item, index) in hotList" :key="item.id" :data="item" :enableToolbar="true" @card:content-click="routeToPost"></card>        
     <f7-link @click="loadMore">MORE</f7-link>
   </div>
 </template>
@@ -63,8 +63,8 @@ export default {
     async loadMore() {
       this.offset += this.loadNumber
       let addList = await this.$store.dispatch('getHotList', {
-        limit: this.limit,
-        offset: this.offset,
+        limit: this.pagerSet.limit,
+        offset: this.pagerSet.offset,
         isAdd: true
       })
       this.$store.commit('ADD_LIST',{
