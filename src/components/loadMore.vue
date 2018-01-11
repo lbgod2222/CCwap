@@ -14,18 +14,23 @@ export default {
   },
   methods: {
     async loadMore() {
-      console.log(this.type,this.caller,this.pagerSet)
-    // this.$f7.showIndicator()
-      this.pagerSet.offset += this.pagerSet.loadNumber
-      let addList = await this.$store.dispatch(this.caller, {
-        limit: this.pagerSet.limit,
-        offset: this.pagerSet.offset,
-        isAdd: true
-      })
-      this.$store.commit('ADD_LIST',{
-        list: addList,
-        type: this.type
-      })
+      if (this.type === 'record' || this.type === 'post') {
+        // record condition
+        this.$emit('loadMore')
+      } else {
+        console.log(this.type,this.caller,this.pagerSet)
+      // this.$f7.showIndicator()
+        this.pagerSet.offset += this.pagerSet.loadNumber
+        let addList = await this.$store.dispatch(this.caller, {
+          limit: this.pagerSet.limit,
+          offset: this.pagerSet.offset,
+          isAdd: true
+        })
+        this.$store.commit('ADD_LIST',{
+          list: addList,
+          type: this.type
+        })
+      }
     // this.$f7.hideIndicator()
     }
   }

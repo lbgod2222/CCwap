@@ -43,6 +43,7 @@
             <span>{{$t('app.empty_container')}}</span>
           </div>
         </div> -->
+        <load-more @loadMore="loadMoreComment"></load-more>
       </div>
     </div>
     <f7-toolbar class="custom-toolbar flex-row">
@@ -169,6 +170,7 @@
 <script>
 // import axios from 'axios'
 import Card from '../components/card.vue'
+import loadMore from '../components/loadMore.vue'
 import moment from 'moment'
 import {getRemoteAvatar} from '../utils/appFunc'
 import getRealTime from '../utils/getRealTime'
@@ -180,7 +182,8 @@ export default {
   data() {
     return {
       articleDetail: {},
-      comments: []
+      comments: [],
+      type: 'comments'
     }
   },
   computed: {
@@ -257,10 +260,23 @@ export default {
         mid,
         type: status ? 'unlike' : 'like'
       })
+    },
+    loadMoreComment(){
+      let b = await this.$store.dispatch('getArticleComment', {
+        id: this.$route.params.id
+      })
+      // this.comments = b.comments
+      for (let i=0; i<b.comments.length; i++) {
+        console.log(getRealTime,'the func')
+        b.comments[i].realtime = getRealTime.getCorrectTimestamp(b.comments[i].t_timestamp)
+        b.comments[i].photo = toPhoto.toAvatar(b.comments[i].authorId)
+      }
+      this.comments = this.comment.concat(b.comments)
     }
   },
   components: {
-    Card
+    Card,
+    loadMore
   }
 }
 </script>

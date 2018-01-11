@@ -38,7 +38,7 @@
             </a>
           </li>
         </ul>
-      <load-more :type="this.type" :pagerSet="this.pagerSet" :caller="'getTransactionRecords'"></load-more>
+      <load-more :type="this.type" @loadMore="loadMoreRecords"></load-more>
       </f7-list>
     </f7-page>
   </div>
@@ -63,7 +63,10 @@ export default {
       pagerSet: {
         limit: 20,
         offset: 0,
-        loadNumber: 10
+        loadNumber: 10,
+        ownerId: this.$store.state.user_address,
+        // default: null
+        currency: null
       },
       type: 'record'
     }
@@ -91,6 +94,16 @@ export default {
     rollBack(){
       console.log(this.$f7.mainView.router)
       this.$f7.mainView.router.load({url: '/'})
+    },
+    async loadMoreRecords() {
+      console.log('loadmore in record')
+      let a = await this.$store.dispatch('getTransactionRecords', {
+        limit: this.pagerSet.limit,
+        offset: this.pagerSet.offset,
+        ownerId: this.pagerSet.ownerId,
+        currency: this.pagerSet.currency,
+      })
+      this.items = this.items.concat(a.transfers)
     }
   },
   components: {
