@@ -43,7 +43,7 @@
             <span>{{$t('app.empty_container')}}</span>
           </div>
         </div> -->
-        <load-more @loadMore="loadMoreComment"></load-more>
+        <load-more @loadMore="loadMoreComment" :type="this.type"></load-more>
       </div>
     </div>
     <f7-toolbar class="custom-toolbar flex-row">
@@ -183,7 +183,12 @@ export default {
     return {
       articleDetail: {},
       comments: [],
-      type: 'comments'
+      type: 'comments',
+      pagerSet: {
+        limit: 10,
+        offset: 0,
+        loadNumber: 5,
+      }
     }
   },
   computed: {
@@ -217,7 +222,9 @@ export default {
     // this.$store.commit('GET_ARITCLE_DETAIL',{articleDetail})
     console.log(a,'getArticleDetail in async')
     let b = await this.$store.dispatch('getArticleComment', {
-      id: this.$route.params.id
+      id: this.$route.params.id,
+      offset: 0,
+      limit: 10
     })
     this.comments = b.comments
     for (let i=0; i<this.comments.length; i++) {
@@ -261,9 +268,12 @@ export default {
         type: status ? 'unlike' : 'like'
       })
     },
-    loadMoreComment(){
+    async loadMoreComment(){
+      this.pagerSet.offset += this.pagerSet.loadNumber
       let b = await this.$store.dispatch('getArticleComment', {
-        id: this.$route.params.id
+        id: this.$route.params.id,
+        offset: this.pagerSet.offset,
+        limit: this.pagerSet.loadNumber
       })
       // this.comments = b.comments
       for (let i=0; i<b.comments.length; i++) {
@@ -271,7 +281,8 @@ export default {
         b.comments[i].realtime = getRealTime.getCorrectTimestamp(b.comments[i].t_timestamp)
         b.comments[i].photo = toPhoto.toAvatar(b.comments[i].authorId)
       }
-      this.comments = this.comment.concat(b.comments)
+      // this.comments = this.comment.concat(b.comments)
+      this.comments = Array.prototype.concat.apply(this.comments, b.comments)
     }
   },
   components: {

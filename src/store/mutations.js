@@ -68,6 +68,7 @@ export default {
   },
   // list add new contents
   [types.ADD_LIST]  (state, {list, type}) {
+    addTimeAndAva(list)
     switch (type) {
     case 'hot':
       console.log('hot',list,type)

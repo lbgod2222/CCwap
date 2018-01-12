@@ -62,7 +62,7 @@ export default {
       items:[],
       pagerSet: {
         limit: 20,
-        offset: 0,
+        offset: 20,
         loadNumber: 10,
         ownerId: this.$store.state.user_address,
         // default: null
@@ -96,6 +96,7 @@ export default {
       this.$f7.mainView.router.load({url: '/'})
     },
     async loadMoreRecords() {
+      this.pagerSet.offset += this.pagerSet.loadNumber
       console.log('loadmore in record')
       let a = await this.$store.dispatch('getTransactionRecords', {
         limit: this.pagerSet.limit,

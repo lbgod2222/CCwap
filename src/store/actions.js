@@ -52,7 +52,7 @@ export function getHotList({commit}, {limit, offset, isAdd}) {
       })
     } else {
       commit(types.ADD_LIST, {
-        hotList,
+        list: hotList,
         type: 'hot'
       })
     }
@@ -66,20 +66,19 @@ export function getNewList({commit}, {limit, offset, isAdd}) {
       limit: limit,
       offset: offset
     }
-  }
-).then(res => {
-  let newList = res
-  if (isAdd === false) {
-    commit(types.GET_NEW, {
-      newList
-    })
-  } else {
-    commit(types.ADD_LIST, {
-      newList,
-      type: 'new'
-    })
-  }
-})
+  }).then(res => {
+    let newList = res
+    if (isAdd === false) {
+      commit(types.GET_NEW, {
+        newList
+      })
+    } else {
+      commit(types.ADD_LIST, {
+        list: newList,
+        type: 'new'
+      })
+    }
+  })
 }
 
 // get article detail
@@ -88,8 +87,14 @@ export function getArticleDeatil({commit}, {id}) {
 }
 
 // get article comment
-export function getArticleComment({commit}, {id}) {
-  return axios.get(`/articles/${id}/comments`)
+export function getArticleComment({commit}, {id, offset, limit}) {
+  return axios.get(`/articles/${id}/comments`, {
+    params: {
+      sortBy: 'timestamp:desc',
+      offset: offset,
+      limit: limit
+    }
+  })
 }
 
 // get transactions records
