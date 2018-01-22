@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const DEV_BASE_URL = 'http://127.0.0.1:4000'
+const DEV_BASE_URL = 'http://testnet.cctime.org:4096/api/dapps/d352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1'
 // const PROD_BASE_URL = 'https://raw.githubusercontent.com/BelinChung/HiApp/master/mock_api'
 const PROD_BASE_URL = 'http://testnet.cctime.org:4096/api/dapps/d352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1'
 axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? DEV_BASE_URL : PROD_BASE_URL
